@@ -3,12 +3,13 @@ import Router from 'vue-router'
 import Login from '@/components/Login.vue'
 import Home from '@/components/Home.vue'
 import Welcome from '@/components/Welcome.vue'
-import Users from '@/components/user/Users'
-import Roles from '@/components/role/Roles'
-import GoodsCate from '@/components/goods/GoodsCate'
+import Users from '@/components/user/Users.vue'
+import Roles from '@/components/role/Roles.vue'
+import GoodsCate from '@/components/goods/GoodsCate.vue'
 import GoodsList from '@/components/goods/GoodsList'
 import NotFound from '@/components/NotFound.vue'
 import store from '@/store'
+
 Vue.use(Router)
 const userRule = { path: '/users', component: Users }
 const roleRule = { path: '/roles', component: Roles }
@@ -61,7 +62,6 @@ router.beforeEach((to, from, next) => {
       next()
     }
   }
-  next()
 })
 
 export function initDynamicRoutes() {
@@ -72,6 +72,7 @@ export function initDynamicRoutes() {
     item.children.forEach(item => {
       // item 二级权限
       const temp = ruleMapping[item.path]
+      temp.meta = item.rights
       currentRoutes[2].children.push(temp)
     })
   })
